@@ -35,7 +35,6 @@ class Place(BaseModel, Base):
         amenity_ids = []
 
     else:
-        else:
         city_id = ""
         user_id = ""
         name = ""
@@ -70,9 +69,7 @@ class Place(BaseModel, Base):
                not in self.amenity_ids:
                 self.amenity_ids.append(amenity.id)
 
-
-
-    """if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+"""if os.getenv('HBNB_TYPE_STORAGE') == 'db':
         reviews = relationship("Review", backref="place",
                                cascade="all, delete")
         amenities = relationship('Amenity',
