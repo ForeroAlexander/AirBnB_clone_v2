@@ -4,7 +4,7 @@ from models.review import Review
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float
 from sqlalchemy.orm import relationship, backref
-import os
+from os import getenv
 from sqlalchemy import MetaData, Table
 
 metadata = Base.metadata
@@ -21,7 +21,7 @@ place_amenity = Table('place_amenity', metadata,
 class Place(BaseModel, Base):
     """This class define a table with various atributtes"""
     __tablename__ = "places"
-    if os.getenv("HBNB_TYPE_STORAGE") == "db":
+    if getenv("HBNB_TYPE_STORAGE") == "db":
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
         name = Column(String(128), nullable=False)
