@@ -10,14 +10,21 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        if cls:
-            obj_list = {}
-            for key, value in FileStorage.__objects.items():
-                if type(value) == cls:
-                    obj_list[key] = value
-            return obj_list
-        else:
+        if not cls:
             return FileStorage.__objects
+
+        filtered = {}
+        for key, value in FileStorage.__objects.items():
+            if isinstance(value, cls):
+                filtered.update({key: value})
+        return filtered
+
+    def delete(self, obj=None):
+        """delete object of dict __objects"""
+        if obj:
+            key = '{}.{}'.format(obj.__class__.__name__ , obj.id)
+            del self.__objects[key]
+
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -43,25 +50,15 @@ class FileStorage:
         from models.review import Review
 
         classes = {
-                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                    'State': State, 'City': City, 'Amenity': Amenity,
-                    'Review': Review
-                  }
+            'BaseModel': BaseModel, 'User': User, 'Place': Place,
+            'State': State, 'City': City, 'Amenity': Amenity,
+            'Review': Review
+        }
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
-                        self.all()[key] = classes[val['__class__']](**val)
+                    self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
-
-    def delete(self, obj=None):
-        """Delete a object """
-        if not obj:
-            return
-        name_cl = type(obj).__name__
-        obs = name_cl + "." + str(obj.id)
-        if obs in self.__objects:
-            del self.__objects[obs]
-            self.save()
