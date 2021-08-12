@@ -51,7 +51,7 @@ class Place(BaseModel, Base):
             return _review
 
         @property
-        def amenities(self):
+        def kamenities(self):
             """getter method amenities"""
             _amenities = []
             for _id, obj in models.storage.all(Amenity).items():
