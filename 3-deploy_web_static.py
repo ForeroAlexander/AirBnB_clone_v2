@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Pack web static """
+""" web static """
 from fabric.api import *
 from os import path
 from datetime import datetime
