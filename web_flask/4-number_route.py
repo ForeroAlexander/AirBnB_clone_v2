@@ -1,19 +1,19 @@
 #!/usr/bin/python3
-""" Start Flask """
-from flask import Flask, app
+""" Starts Flask. """
+from flask import Flask
 
 app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def hello_hbnb():
-    """Hello HBNB! """
+def hello_HBNB():
+    """ Hello HBNB!!! """
     return "Hello HBNB!"
 
 
 @app.route('/hbnb', strict_slashes=False)
 def HBNB():
-    """HBNB!!"""
+    """ HBNB!!! """
     return "HBNB"
 
 
@@ -30,11 +30,12 @@ def python(phrase='is cool'):
     return 'Python {}'.format(phrase.replace('_', ' '))
 
 
-app.route('/number/<int:num>', strict_slashes=False)
+@app.route('/number/<int:num>', strict_slashes=False)
 def number(num):
     """ It's a number! """
     if type(num) == int:
         return ("{} is a number".format(num))
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     app.run()
